@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import utilities.BarChartWithMarkers?>
+<?import utilities.DateAxis?>
+<?import utilities.LineChartWithMarkers?>
+
+<StackPane id="stackPane" fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+    <VBox id="VBoxOne">
+        <MenuBar id="MenuBar">
+            <Menu id="FileMenuButton" mnemonicParsing="false" text="File">
+                <MenuItem id="CloseMenuItem" mnemonicParsing="false" text="Close" />
+            </Menu>
+            <Menu id="EditMenuButton" mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Change Theme">
+                    <RadioMenuItem fx:id="darkThemeCssRMI" mnemonicParsing="false" onAction="#changeTheme" selected="true" text="Dark Theme">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="cssThemes" />
+                        </toggleGroup>
+                    </RadioMenuItem>
+                    <RadioMenuItem fx:id="lightThemeCssRMI" mnemonicParsing="false" onAction="#changeTheme" text="Light Theme" toggleGroup="$cssThemes" />
+                    <RadioMenuItem fx:id="aquaThemeCssRMI" mnemonicParsing="false" onAction="#changeTheme" text="Aqua Theme" toggleGroup="$cssThemes" />
+
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#showGroups" text="Groups" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <Menu id="CCC" mnemonicParsing="false" text="Change Chart Properties">
+                          <MenuItem onAction="#gradientBackground" text="Change Chart Gradient" />
+                          <MenuItem onAction="#changeChartColor" text="Change Chart Data Color" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <RadioMenuItem mnemonicParsing="false" selected="true" text="Stocks">
+                  <toggleGroup>
+                     <ToggleGroup fx:id="instrumentToggle" />
+                  </toggleGroup>
+               </RadioMenuItem>
+               <RadioMenuItem mnemonicParsing="false" text="Indices" toggleGroup="$instrumentToggle" />
+               <RadioMenuItem mnemonicParsing="false" text="Currencies" toggleGroup="$instrumentToggle" />
+               <RadioMenuItem mnemonicParsing="false" text="Commodities" toggleGroup="$instrumentToggle" />
+               <RadioMenuItem mnemonicParsing="false" text="Bonds" toggleGroup="$instrumentToggle" />
+               <RadioMenuItem mnemonicParsing="false" text="Options" toggleGroup="$instrumentToggle" />
+               </Menu>
+            </Menu>
+            <Menu id="MenuButton" mnemonicParsing="false" text="WatchList">
+                <MenuItem id="CreateWatchlistMenuItem" mnemonicParsing="false" onAction="#createWatchlist" text="Create Watchlist" />
+                <MenuItem id="EditWatchlistMenuItem" mnemonicParsing="false" onAction="#showEditWatchlist" text="Edit Watchlist" />
+            </Menu>
+            <Menu id="ScanMenuButton" mnemonicParsing="false" text="Scan">
+                <MenuItem id="NewScanMenuItem" mnemonicParsing="false" onAction="#showScanner" text="New Scan" />
+                <MenuItem id="PastScansMenuItem" mnemonicParsing="false" text="Past Scans" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Learn">
+                <MenuItem mnemonicParsing="false" text="Trading Basics" />
+                <MenuItem mnemonicParsing="false" text="Trading Advanced" />
+                <MenuItem mnemonicParsing="false" text="Methodologies" />
+            </Menu>
+        </MenuBar>
+        <ToolBar id="AccountToolBar">
+            <Label id="ProfitAndLossLabel" text="P&amp;L" />
+            <Label id="ProfitAndLossAmtLabel" layoutX="10.0" layoutY="10.0" text="0" />
+            <Separator orientation="VERTICAL" />
+            <Label id="Shares" text="# of Shares" />
+            <Label id="netShares" fx:id="netShares" layoutX="57.0" layoutY="10.0" text="0" />
+            <Separator layoutX="148.0" layoutY="10.0" orientation="VERTICAL" />
+            <Label id="CurrentAcctValueLabel" layoutX="158.0" layoutY="10.0" text="Current Account Value" />
+            <Label id="CurrentAcctValueAmtLabel" layoutX="239.0" layoutY="10.0" text="\$100,000" />
+            <Separator layoutX="250.0" layoutY="10.0" orientation="VERTICAL" />
+            <Label id="BuyingPowerLabel" layoutX="260.0" layoutY="10.0" text="Buying Power" />
+            <Label id="BuyingPowerAmtLabel" layoutX="446.0" layoutY="10.0" text="\$100,000" />
+            <Separator layoutX="436.0" layoutY="10.0" orientation="VERTICAL" />
+            <Button id="BuyButton" layoutX="446.0" layoutY="10.0" onAction="#buyStock" text="Buy" />
+            <Separator layoutX="575.0" layoutY="10.0" orientation="VERTICAL" />
+            <Button id="SellButton" layoutX="585.0" layoutY="10.0" onAction="#sellStock" text="Sell" />
+            <ProgressBar fx:id="progressBar" layoutX="Infinity" layoutY="10" visible="false" />
+        </ToolBar>
+        <HBox id="HBoxMain" VBox.vgrow="ALWAYS">
+            <SplitPane id="SplitPaneVertical" fx:id="tableSplitPane" dividerPositions="0.29797979797979796" prefWidth="792.0" HBox.hgrow="ALWAYS">
+                <AnchorPane id="AnchorPane1" minHeight="0.0" minWidth="0.0" prefWidth="100.0">
+                    <TableView id="TableView" fx:id="tableView" layoutX="2.0" onMouseReleased="#newStockPicked" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                        <columns>
+                            <TableColumn id="SymbolTC" fx:id="symbolTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="72.0" text="Symbol" />
+                            <TableColumn id="percentChangeTC" fx:id="priceTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="57.0" text="Price" />
+                            <TableColumn id="percentChangeTC" fx:id="percentChangeTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="136.0" text="\% change since open" />
+                            <TableColumn id="CurrentVolumeTC" fx:id="currentVolumeTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="70.0" text="Volume" />
+                            <TableColumn id="BidTC" fx:id="bidTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" text="Bid" />
+                            <TableColumn id="AskTC" fx:id="askTC" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" text="Ask" />
+                            <TableColumn id="symbolName" fx:id="symbolName" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" text="Equity Name" />
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <SplitPane fx:id="chartSplitPane" dividerPositions="0.5" onMouseDragged="#changeGradient" orientation="VERTICAL" prefHeight="557.0" prefWidth="552.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="415.0">
+                            <VBox prefHeight="197.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <ToolBar maxHeight="27.0" prefHeight="27.0">
+                                    <Label text="TimeFrame: " />
+                                    <RadioButton mnemonicParsing="false" text="M">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="timeFrame" />
+                                        </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#changeInterval" selected="true" text="15 M" toggleGroup="$timeFrame" userData="Fifteen" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeInterval" text="Hourly" toggleGroup="$timeFrame" userData="Hourly" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeInterval" selected="true" text="Daily" toggleGroup="$timeFrame" userData="Daily" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeInterval" text="Weekly" toggleGroup="$timeFrame" userData="Weekly" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeInterval" text="Monthly" toggleGroup="$timeFrame" userData="Monthly" />
+                                </ToolBar>
+                                <LineChartWithMarkers fx:id="lineChart" legendVisible="false" VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <DateAxis label="Date" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis forceZeroInRange="false" side="RIGHT" />
+                                    </yAxis>
+                                    <cursor>
+                                        <Cursor fx:constant="CROSSHAIR" />
+                                    </cursor>
+                                </LineChartWithMarkers>
+                            </VBox>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="415.0">
+                            <VBox prefHeight="197.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <ToolBar prefHeight="19.0" prefWidth="550.0">
+                                    <Label text="Volume" />
+                                </ToolBar>
+                                <BarChartWithMarkers fx:id="volumeBarChart" legendVisible="false" VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis label="Date" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Volume" side="RIGHT" />
+                                    </yAxis>
+                                    <cursor>
+                                        <Cursor fx:constant="CROSSHAIR" />
+                                    </cursor>
+                                </BarChartWithMarkers>
+                            </VBox>
+                        </AnchorPane>
+                    </SplitPane>
+                </AnchorPane>
+            </SplitPane>
+            <ToolBar orientation="VERTICAL">
+                <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/CrossHair.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#erase" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/EraseDrawing.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#horizontalLine" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/HorizontalLine.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#verticalLine" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/VerticalLine.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#freeFormLine" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/Line.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#linearRegression" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/LinearRegression.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#simpleMovingAverage" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/SMAIcon.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#exponentialMovingAverage" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/EMAIcon.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#vwap" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/VWAPIcon.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/ADFIcon.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#addText" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/Text.PNG" />
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="20.0" onMouseClicked="#pan" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/icons/PanChart.PNG" />
+                </ImageView>
+                <ColorPicker fx:id="cPicker" maxWidth="20" minWidth="10" prefWidth="20" HBox.hgrow="ALWAYS" />
+            </ToolBar>
+        </HBox>
+    </VBox>
+</StackPane>

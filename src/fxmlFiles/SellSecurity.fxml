@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0"
+            prefWidth="320.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.SellSideController" fx:id="ac">
+   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="100.0" text="Price"/>
+   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="136.0" text="Quantity"/>
+   <TextField fx:id="orderSizeTF" layoutX="78.0" layoutY="132.0" prefHeight="25.0" prefWidth="87.0" promptText="100"
+              onKeyPressed="#updateOrderSize" onKeyReleased="#updateOrderSize"/>
+   <Label fx:id="orderSizeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="136.0"
+          text="\$"/>
+   <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="100.0" text="\$"/>
+   <Button fx:id="commit" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" onAction="#finalizeOrder"
+           prefHeight="72.0" prefWidth="320.0" style="-fx-background-color: Black;" text="Sell " textFill="#fffdfd"
+           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <font>
+         <Font size="34.0"/>
+      </font>
+   </Button>
+</AnchorPane>
