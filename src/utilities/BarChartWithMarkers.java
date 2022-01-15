@@ -157,6 +157,9 @@ public class BarChartWithMarkers<X, Y> extends BarChart{
     /**
      * Add a node to the pointMarker's arrayList and see if you can draw from
      * point 1 to point 2, point 2 to point 3, and so on
+     *
+     * @param marker the datapoint that we will draw a vertex on
+     * @param color the color the line will be
      */
     public void addFreeFormLine(Data<X, Y> marker, Color color) {
         Objects.requireNonNull(marker, "the marker must not be null");

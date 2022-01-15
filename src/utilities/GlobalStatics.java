@@ -18,11 +18,15 @@ public class GlobalStatics  {
   public static Function<WindowEvent, Void> onClose = e -> {
     System.exit(0);
     return null;
-  };
+  };//default exit clause
 
 
-
-
+  /**
+   * highlight the given textFields and add an error message to them
+   *
+   * @param errorMessage the messaage tooltip that will be added to the textField
+   * @param values the textfields where an error occurred
+   */
   public static void highlightErrorsV(String errorMessage, TextField... values) {
     for(TextField s : values) {
       s.setStyle(errorColor);
@@ -30,12 +34,29 @@ public class GlobalStatics  {
     }
   }
 
+  /**
+   * Dehighlight any textfields passed in
+   * @param values the textfields that we want to reset the style of
+   */
   public static void deHighlightErrors(TextField... values){
     for(TextField s : values) {
       s.setStyle(defaultColor);
     }
   }
 
+  /**
+   * Show a certain scene
+   *
+   * @param resource the FXML source behind the scene we want to show
+   * @param title the title of the scene
+   * @param w the width of the scene
+   * @param h the height of the scene
+   * @param modality the modality of the scene
+   * @param opacity the opacity of the scene
+   * @param resize whether the user can resize the scene
+   * @param exitClause what to do on exit of the scene
+   * @param tClass the parent class
+   */
   public static void showX(String resource, String title, int w, int h, Modality modality, double opacity, boolean resize, Function<WindowEvent, Void> exitClause, Class tClass){
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(tClass.getResource(resource));
@@ -54,6 +75,11 @@ public class GlobalStatics  {
     }
   }
 
+  /**
+   * Get the index of the given character
+   * @param letter the letter we will find the index of
+   * @return the index of the letter relative to alphabet, 0 if not found
+   */
   public static int getIndex(char letter) {
     final char[] alphabet = {'A', 'B', 'C', 'D',
         'E', 'F', 'G', 'H',
@@ -70,6 +96,12 @@ public class GlobalStatics  {
     return 0;
   }
 
+  /**
+   * populate the search field with results that match the initial typed symbol. (aa) would populate aapl
+   * @param typedSymbol the currently typed querey in a search text field, e.g. "goo" for "google"
+   * @param data the data table we can lookup from
+   * @param searchTV the tableView we will populate with results
+   */
   public static void populateSearchField(String typedSymbol, String[] data, TableView<String> searchTV) {
     if (typedSymbol.equals("")){
       return;
@@ -85,26 +117,5 @@ public class GlobalStatics  {
         e.getMessage();
       }
     }
-  }
-
-  public static int getMaxHTTPSizeForRequest(String webserverURL) {
-    //First we identify the webserver, microsoft IIS, nginx, apache, tomcat, etc
-    /*
-
-using System;
-using System.Net;
-
-public class TestApp {
-    public static void Main( string[] args ) {
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://finance.yahoo.com/");
-        WebResponse response = request.GetResponse();
-        Console.Out.WriteLine( response.Headers.Get("Server") );
-    }
-}
-
-     */
-    //quick c# to get the type of webserver, yhf is ATS which is 8k header limit
-    //Obviously, need to programmatically make this
-    return 8000;
   }
 }

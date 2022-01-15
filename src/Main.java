@@ -113,6 +113,7 @@ public final class Main extends Application {
                         stock.clear();
                     }
                 } catch(IOException e){
+
                     e.printStackTrace();
                     failed();
                 } finally {

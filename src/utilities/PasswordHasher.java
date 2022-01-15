@@ -8,11 +8,16 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+//Hash logic for the user's password
 public class PasswordHasher {
 
     private int MAXITER = 80000, DKLEN = 512, SALTLENGTH = 32;
     private String salt, password;
 
+    /**
+     * Constructor for a PasswordHasher given only the password, used for encrypting for db
+     * @param password the password to be hashed
+     */
     public PasswordHasher(String password){
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -25,6 +30,12 @@ public class PasswordHasher {
         this.password = createPassword();
     }
 
+    /**
+     * password hasher for presets, usually a validator
+     * @param password the given password
+     * @param salt the given salt
+     * @param maxIter the given maxiterations to hash
+     */
     public PasswordHasher(String password, String salt, int maxIter){
         this.salt = salt;
         this.MAXITER = maxIter;
@@ -44,6 +55,10 @@ public class PasswordHasher {
         return MAXITER;
     }
 
+    /**
+     * create the password for the user
+     * @return a hashed password
+     */
     private String createPassword() {
 
         char[] passwordChars = password.toCharArray();
@@ -53,10 +68,24 @@ public class PasswordHasher {
         return Hex.encodeHexString(hashedBytes);
     }
 
+    /**
+     * get a random character for the salt between ch1 and ch2 inclusive
+     * @param ch1 character begin
+     * @param ch2 character end
+     * @return a random character between ch1 and ch2 inclusive
+     */
     private char getRandomCharacter(char ch1, char ch2) {
         return (char) (ch1 + Math.random() * (ch2 - ch1 + 1));
     }
 
+    /**
+     * Hash password with SHA512
+     * @param password password to be hashed
+     * @param salt salt for the password
+     * @param iterations how many iterations to hash
+     * @param keyLength how long we want the final key length to be
+     * @return the hashed password
+     */
     private static byte[] hashPassword(final char[] password, final byte[] salt, final int iterations, final int keyLength) {
 
         try {

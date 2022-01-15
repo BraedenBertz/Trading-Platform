@@ -28,8 +28,11 @@ public class Scan {
 	private final Evaluator evaluator = new Evaluator();
 	private Operator operator = Operator.doesNotEqual;
 	private Controller controller;
+	private String fullCondition = "";
 	private String discriminator = "0";
 	private String conditional = "0";
+	private String filePrepend = "src/log/";
+	private String fileAppend = ".txt";
 	
 	public void initialize() {
 		controller = staticController;
@@ -84,7 +87,8 @@ public class Scan {
 		// constant for the scan.
 		conditional = conditionalTF.getText();
 		discriminator = evaluator.reduce(discriminatorTF.getText());
-		Function<Stock, Boolean> expression = stock -> {
+		fullCondition = conditional + propertyCB.getValue() + discriminator;
+				Function<Stock, Boolean> expression = stock -> {
 			evaluator.setActiveStock(stock);
 			return operator.compare(evaluator.evaluate(conditional),
 					evaluator.evaluate(discriminator));
@@ -96,7 +100,7 @@ public class Scan {
 
 				if (doScan) {
 					Scanner scanner = new Scanner(expression, controller);
-					logScan("src/pastScans/" + name + ".txt", scanner.getFutureSuccesses());
+					logScan( filePrepend + name + fileAppend, scanner.getFutureSuccesses());
 				} else{
 					controller.showProgressBar(false, "");
 				}
@@ -110,7 +114,7 @@ public class Scan {
 	}
 
 	private boolean checkFileConstraints(String nameOfScan) throws IOException {
-		String fileName = "src/pastScans/" + nameOfScan + ".txt";
+		String fileName = filePrepend + nameOfScan + fileAppend;
 		File file = new File(fileName);
 		if (!file.exists()) {
 			//create file
@@ -144,7 +148,7 @@ public class Scan {
 		byte[] delimiter = ", ".getBytes();
 		FileChannel channel = stream.getChannel();
 
-		byte[] start = "All ticker symbols that passed the criteria: ".getBytes();
+		byte[] start = ("All ticker symbols that passed the criteria: "+fullCondition).getBytes();
 		ByteBuffer buffer = ByteBuffer.allocate(start.length);
 		buffer.put(start);
 		buffer.flip();

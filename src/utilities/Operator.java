@@ -1,5 +1,6 @@
 package utilities;
 
+//Enum for seeing what a conditional in a natural string is
 public enum Operator{
 	lessThan {
 		public boolean compare(double conditional, double discriminator) { return conditional > discriminator; }
