@@ -77,13 +77,13 @@ public final class Main extends Application {
             protected Void call() {
                 long startTime = System.currentTimeMillis();
                 final String[] filePaths = {
-                    "src/log/stocks.txt",
-                    "src/log/currencies.txt",
-                    "src/log/commodities.txt",
-                    "src/log/bonds.txt",
-                    "src/log/options.txt",
-                    "src/log/indices.txt",
-                    "src/log/ETFs.txt",
+                    "log/stocks.txt",
+                    "log/currencies.txt",
+                    "log/commodities.txt",
+                    "log/bonds.txt",
+                    "log/options.txt",
+                    "log/indices.txt",
+                    "log/ETFs.txt",
                 };
                 final String[] nasdaqFilePaths = {
                     "/Symboldirectory/nasdaqlisted.txt",

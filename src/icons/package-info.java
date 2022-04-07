@@ -1,5 +1,0 @@
-/**
- * @author braed
- *
- */
-package icons;

@@ -121,6 +121,21 @@ public class LinearRegression {
         return slope*x + intercept;
     }
 
+    public double lastLinReg(int timePeriod){
+        switch (timePeriod){
+            case 0:
+                //Daily
+                break;
+            case 1:
+                //Weekly
+                break;
+            case 2:
+                //Monthly
+                break;
+        }
+        return 2;
+    }
+
     /**
      * Returns a string representation of the simple linear regression model.
      *

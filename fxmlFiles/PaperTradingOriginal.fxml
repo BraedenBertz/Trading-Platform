@@ -73,6 +73,14 @@
                 <MenuItem id="NewScanMenuItem" mnemonicParsing="false" onAction="#showScanner" text="New Scan" />
                 <MenuItem id="PastScansMenuItem" mnemonicParsing="false" text="Past Scans" />
             </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Learn">
+                <MenuItem mnemonicParsing="false" text="Trading Basics" />
+                <MenuItem mnemonicParsing="false" text="Trading Advanced" />
+                <MenuItem mnemonicParsing="false" text="Methodologies" />
+            </Menu>
         </MenuBar>
         <ToolBar id="AccountToolBar">
             <Label id="ProfitAndLossLabel" text="P&amp;L" />
