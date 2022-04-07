@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GroupInteractionController">
+   <HBox prefHeight="472.0" prefWidth="378.0" AnchorPane.bottomAnchor="112.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="460.0" prefWidth="378.0" HBox.hgrow="ALWAYS">
+         <Label text="Group Start And End Dates in DD/MM/YYYY Format" />
+         <HBox prefHeight="31.0" prefWidth="300.0">
+            <TextField fx:id="start" prefHeight="31.0" prefWidth="106.0" promptText="Start Date" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="82.0" text="Through" />
+            <TextField fx:id="end" prefHeight="31.0" prefWidth="122.0" promptText="End Date" />
+         </HBox>
+         <Label text="Name of Group" />
+         <TextField fx:id="newName" promptText="Name of group" />
+         <Label text="Password for group" />
+         <TextField fx:id="password" promptText="Leave blank if there is no password" />
+         <Label text="Minimum Equity Price" />
+         <TextField fx:id="minimumPrice" promptText="Default is 1 Dollar" />
+         <Label text="Allow Short Selling?" />
+         <HBox prefHeight="22.0" prefWidth="300.0">
+            <RadioButton fx:id="yesShort" mnemonicParsing="false" selected="true" text="Yes">
+               <toggleGroup>
+                  <ToggleGroup fx:id="shortSelling" />
+               </toggleGroup>
+            </RadioButton>
+            <Label text="            " />
+            <RadioButton fx:id="noShort" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="No" toggleGroup="$shortSelling" />
+         </HBox>
+         <Label text="Commission Cost" />
+         <TextField fx:id="commission" promptText="Default is $4.99" />
+         <Label text="Position Limit" />
+         <TextField fx:id="positionLimit" promptText="Default is 20%" />
+         <Label text="Does something need to be added?" />
+         <TextField promptText="Please enter it here" />
+         <Label text="Administrative Password for Group" />
+         <PasswordField fx:id="adminPasswordTF" />
+      </VBox>
+   </HBox>
+   <Button layoutY="371.0" mnemonicParsing="false" onAction="#tryToCreateNewGroup" prefHeight="81.0" prefWidth="378.0" style="-fx-background-color: #98FB98; -fx-text-fill: Black;" text="Create group" />
+</AnchorPane>
