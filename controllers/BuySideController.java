@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import utilities.User;
+import userItems.User;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -90,7 +90,7 @@ public class BuySideController {
             JOptionPane.showMessageDialog(null, "Don't try to sql inject me buddo!");
             return;
         }
-        primaryUser.executeTrade(security, new BigDecimal(label.getText()), Long.valueOf(orderSizeTF.getText()));
+       // primaryUser.executeTrade(security, new BigDecimal(label.getText()), Long.valueOf(orderSizeTF.getText()));
         ((Stage) label.getScene().getWindow()).close();
     }
 }

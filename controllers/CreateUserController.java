@@ -10,8 +10,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import utilities.PasswordHasher;
-import utilities.User;
+import userItems.PasswordHasher;
+import userItems.User;
 
 import java.util.function.Function;
 
@@ -66,18 +66,9 @@ public class CreateUserController {
         if (errorsPresent()) return;
 
         try {
-            PasswordHasher hasher = new PasswordHasher(passwordTF.getText());
-
-            String username = usernameTF.getText();
-            String password = hasher.getPassword();
-            System.out.println(password);
-            String email = eMailTF.getText();
-            String salt = hasher.getSalt();
-            int iter = hasher.getMAXITER();
-
-            User primaryUser = new User(0, username, password, email, salt, iter);
-
-            primaryUser.insertNewUser();
+            User newUser = new User(usernameTF.getText(), passwordTF.getText());
+            newUser.setEmail(eMailTF.getText());
+            newUser.insertNewUser();
             loadPrimaryLogin();
 
         } catch (Throwable e) {

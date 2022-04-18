@@ -36,11 +36,12 @@ import javafx.scene.shape.Polyline;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import userItems.User;
 import utilities.*;
-import technicalAnalysis.overlays.ExponentialMovingAverage;
-import technicalAnalysis.overlays.LinearRegression;
-import technicalAnalysis.overlays.SimpleMovingAverage;
-import technicalAnalysis.overlays.VolumeWeightedAveragePrice;
+import statisticalTestSuite.ExponentialMovingAverage;
+import statisticalTestSuite.LinearRegression;
+import statisticalTestSuite.SimpleMovingAverage;
+import statisticalTestSuite.VolumeWeightedAveragePrice;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
@@ -199,8 +200,6 @@ public class Controller extends utilities.DateAxis {
 
         primaryUser = new User(id);
 
-        primaryUser.setGroupID("Global");//FIXME Get last group id from config file
-
         populateTableView();
 
         tableView.getSelectionModel().select(0);
@@ -259,25 +258,24 @@ public class Controller extends utilities.DateAxis {
         aquaThemeCssRMI.setUserData("/cssFiles/AquaTheme.bss");
         lightThemeCssRMI.setUserData("/cssFiles/modena.bss");
 
+       /*
         //Get the user's positions relative to their group
         try {
-            userPositions = primaryUser.getOpenPositions();
+            //userPositions = primaryUser.getOpenPositions();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        */
 
         //Add the keyListeners
         final KeyCombination controlB = new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN);
         final KeyCombination controlS = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-        final KeyCombination controlG = new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN);
         stackPane.getScene().setOnKeyTyped(event -> {
             try {
                 if (controlB.match(event)) {
                     buyStock();
                 } else if (controlS.match(event)) {
                     sellStock();
-                } else if (controlG.match(event)) {
-                    showGroups();
                 } else if (!event.isControlDown() && !event.isAltDown() && !event.isShiftDown()) {
                     searchPanel(event.getCharacter());
                 }
@@ -1406,14 +1404,6 @@ public class Controller extends utilities.DateAxis {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void showGroups() {
-        GroupController.getUserData(primaryUser);
-        String selectedToggle = cssThemes.getSelectedToggle().getUserData().toString();
-        GroupController.setupTheme(selectedToggle);
-        showX("/fxmlFiles/GroupInterface.fxml", "Groups", 380, 500, Modality.NONE, 1.0, true);
     }
 
     private void searchPanel(String s) {

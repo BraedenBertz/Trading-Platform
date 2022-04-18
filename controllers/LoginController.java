@@ -3,7 +3,7 @@ package controllers;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 import utilities.GlobalStatics;
-import utilities.User;
+import userItems.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -63,11 +63,11 @@ public class LoginController {
             String username = usernameTF.getText();
             String password = passwordTF.getText();
 
-            User primaryUser = new User(0, username, password);
+            User primaryUser = new User(username, password);
 
         try {
             if (primaryUser.validateLogin()) {
-                Controller.setID(primaryUser.getUserID());
+                Controller.setID(0);
                 PaperTrading();
             } else {
                 GlobalStatics.highlightErrorsV("Incorrect password for username found in database. " +

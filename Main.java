@@ -61,7 +61,7 @@ public final class Main extends Application {
     public void start(Stage primaryStage) {
         //Primary stage is the window that has a loading screen and tells the user that we are working on something
         VBox box = new VBox();
-        Image load = new Image(getClass().getResource(preloaders[new Random().nextInt(preloaders.length)]).toExternalForm());
+        Image load = new Image(Objects.requireNonNull(getClass().getResource(preloaders[new Random().nextInt(preloaders.length)])).toExternalForm());
         ImageView loadingIV = new ImageView(load);
         Tooltip.install(loadingIV, tooltip);
         box.getChildren().add(loadingIV);
@@ -93,11 +93,11 @@ public final class Main extends Application {
                 Scanner scanner;
                 try{
                     ftpClient.connect("ftp.nasdaqtrader.com");
-                    boolean login = ftpClient.login("Anonymous", "guest");
+                    ftpClient.login("Anonymous", "guest");
                     for(int i = 0; i < nasdaqFilePaths.length; i++) {
                         File f = new File(filePaths[i]);
                         OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(f));
-                        boolean filee = ftpClient.retrieveFile(nasdaqFilePaths[i], outputStream1);
+                        ftpClient.retrieveFile(nasdaqFilePaths[i], outputStream1);
                         outputStream1.close();
                         scanner = new Scanner(f);
                         scanner.useDelimiter("\\|");
@@ -113,7 +113,6 @@ public final class Main extends Application {
                         stock.clear();
                     }
                 } catch(IOException e){
-
                     e.printStackTrace();
                     failed();
                 } finally {
